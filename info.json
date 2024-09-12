@@ -1,0 +1,22 @@
+{
+    "users": [
+        {
+            "username": "Harry D Oswald",
+            "password": "blueberry",
+            "checkings": 32405.260000000002,
+            "savings": 1234832.03
+        },
+        {
+            "username": "blueberry",
+            "password": "blueberry",
+            "checkings": 0.0,
+            "savings": 0.0
+        },
+        {
+            "username": "I HAVE MONEY",
+            "password": "incorrect:()",
+            "checkings": 0.0,
+            "savings": 0.0
+        }
+    ]
+}
