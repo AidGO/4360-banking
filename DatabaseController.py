@@ -37,8 +37,8 @@ class DatabaseController:
         data = self.read_database()
         for user in data["users"]:
             if user["username"] == username:
-                print("Username Already Exists, Try Again")
-                return None
+                print("\nUsername Already Exists, Try Again")
+                return False
         newUser = {
             "username": username,
             "password": password,
@@ -47,6 +47,8 @@ class DatabaseController:
         }
         data["users"].append(newUser)
         self.write_user_to_database(data)
+        print("Created New Account Successfully")
+        return True
 
     def read_database_account(self, username):
         data = self.read_database()

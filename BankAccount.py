@@ -6,6 +6,7 @@ class BankAccount:
         self.accountName = accountName
         self.savings = self.db.get_savings_from_database(accountName)
         self.checkings = self.db.get_checkings_from_database(accountName)
+        self.transferAttempts = 0
 
     def get_savings(self):
         return self.savings
@@ -33,36 +34,66 @@ class BankAccount:
     def transfer_checkings_to_savings(self, amount):
         savings = self.get_savings()
         checkings = self.get_checkings()
+        try:
+            amount = float(amount)
 
-        if amount > checkings:
-            print("Error: Insufficient Checking Funds")
-        else:
-            self.set_savings(savings + amount)
-            self.set_checkings(checkings - amount)
+            if float(amount) > float(checkings) or float(amount) < 0:
+                print("Error: Insufficient Checking Funds or Invalid Transfer Amount")
+            else:
+                self.set_savings(float(savings) + float(amount))
+                self.set_checkings(float(checkings) - float(amount))
+        except ValueError:
+            print("Invalid Input, Please Enter a Numerical Value")
     
     def transfer_savings_to_checkings(self, amount):
         savings = self.get_savings()
         checkings = self.get_checkings()
+        try:
+            amount = float(amount)
 
-        if amount > savings:
-            print("Error: Insufficient Savings Funds")
-        else:
-            self.set_savings(savings - amount)
-            self.set_checkings(checkings + amount)
+            if float(amount) > float(savings) or float(amount) < 0:
+                print("Error: Insufficient Savings Funds or Invalid Transfer Amount")
+            else:
+                self.set_savings(float(savings) - float(amount))
+                self.set_checkings(float(checkings) + float(amount))
+        except ValueError:
+            print("Invalid Input, Please Enter a Numerical Value")
     
     def withdraw(self, amount):
-        checkings = self.get_checkings()
+        try:
+            amount = float(amount)
+            if float(amount) > 2000 or float(amount) < 0:
+                print("Cannot Withdraw More Than $2000 or Invalid Amount")
+                self.transferAttempts += 1
+                print("Remaining Transfer Attempts: " + str(3 - self.transferAttempts))
+            elif self.transferAttempts == 3:
+                print("Too Many Transfer Attempts, Try Again Later")
+            else:
+                checkings = self.get_checkings()
 
-        if amount > checkings:
-            print("Error: Insufficient Checkings Funds")
-        else:
-            self.set_checkings(checkings - amount)
-            print("Withdraw Successful")
+                if float(amount) > float(checkings):
+                    print("Error: Insufficient Checkings Funds")
+                else:
+                    self.set_checkings(float(checkings) - float(amount))
+                    print("Withdraw Successful")
+        except ValueError:
+            print("Invalid Input, Please Enter a Numerical Value")
     
     def deposit(self, amount):
-        checkings = self.get_checkings()
-        self.set_checkings(checkings + amount)
-        print("Deposit Successful")
+        try:
+            amount = float(amount)
+            if float(amount) > 2000 or float(amount) < 0:
+                print("Cannot Deposit More Than $2000 or Invalid Amount")
+                self.transferAttempts += 1
+                print("Remaining Transfer Attempts: " + str(3 - self.transferAttempts))
+            elif self.transferAttempts == 3:
+                print("Too Many Transfer Attempts, Try Again Later")
+            else:
+                checkings = self.get_checkings()
+                self.set_checkings(float(checkings) + float(amount))
+                print("Deposit Successful")
+        except ValueError:
+            print("Invalid Input, Please Enter a Numerical Value")
 
 if __name__ == "__main__":
     Account = BankAccount("Harry D Oswald")
