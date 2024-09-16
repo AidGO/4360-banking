@@ -35,10 +35,10 @@ class DatabaseController:
         
     def create_database_account(self, username, password, checkings = 0.0, savings = 0.0):
         data = self.read_database()
-        for user in data["users"]:
-            if user["username"] == username:
-                print("\nUsername Already Exists, Try Again")
-                return False
+        if not self.check_username_availability(username):
+            print("\nUsername Already Exists, Try Again")
+            return False
+
         newUser = {
             "username": username,
             "password": password,
