@@ -17,6 +17,12 @@
             "password": "incorrect:()",
             "checkings": 0.0,
             "savings": 0.0
+        },
+        {
+            "username": "yourmom",
+            "password": "password1",
+            "checkings": 1981.0,
+            "savings": 0.0
         }
     ]
-}   
+}
