@@ -12,7 +12,7 @@ class DatabaseController:
         with open(self.filename, 'w') as data:
             json.dump(newData, data, indent=4)
     
-    def check_username_availablility(self, username):
+    def check_username_availablity(self, username):
         data = self.read_database()
         for user in data["users"]:
             if user["username"] == username:
@@ -64,7 +64,6 @@ class DatabaseController:
 
         for user in data["users"]:
             if user["username"] == username:
-                user_found = True
                 if password is not None:
                     user["password"] = password
                 if checkings is not None:
