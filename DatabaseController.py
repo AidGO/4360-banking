@@ -12,7 +12,7 @@ class DatabaseController:
         with open(self.filename, 'w') as data:
             json.dump(newData, data, indent=4)
     
-    def check_username_availablility(self, username):
+    def check_username_availablity(self, username):
         data = self.read_database()
         for user in data["users"]:
             if user["username"] == username:
@@ -35,10 +35,10 @@ class DatabaseController:
         
     def create_database_account(self, username, password, checkings = 0.0, savings = 0.0):
         data = self.read_database()
-        for user in data["users"]:
-            if user["username"] == username:
-                print("\nUsername Already Exists, Try Again")
-                return False
+        if not self.check_username_availability(username):
+            print("\nUsername Already Exists, Try Again")
+            return False
+
         newUser = {
             "username": username,
             "password": password,
@@ -64,7 +64,6 @@ class DatabaseController:
 
         for user in data["users"]:
             if user["username"] == username:
-                user_found = True
                 if password is not None:
                     user["password"] = password
                 if checkings is not None:

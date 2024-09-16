@@ -17,10 +17,10 @@ class AccountAuth():
             if user["username"] == username and user["password"] == password:
                 print("\nLogin Successful")
                 return True
-        else:
-            self.attemptsLeft -= 1
-            print("\nLogin Failed " + str(self.attemptsLeft) + " Remaining")
-            return False
+            else:
+                self.attemptsLeft -= 1
+                print("\nLogin Failed " + str(self.attemptsLeft) + " Remaining")
+                return False
         
     def create_account(self, newUsername, newPassword):
         return self.db.create_database_account(newUsername, newPassword)
